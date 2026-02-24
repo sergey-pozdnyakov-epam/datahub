@@ -1,4 +1,4 @@
-import { TreeStructure } from '@phosphor-icons/react';
+import { TreeStructure } from '@phosphor-icons/react/dist/csr/TreeStructure';
 import { ArrowsClockwise } from 'phosphor-react';
 import React from 'react';
 

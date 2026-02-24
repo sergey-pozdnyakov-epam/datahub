@@ -1,5 +1,5 @@
 import { AppstoreOutlined, FileDoneOutlined, FileOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { ListBullets } from '@phosphor-icons/react';
+import { ListBullets } from '@phosphor-icons/react/dist/csr/ListBullets';
 import * as React from 'react';
 
 import DomainIcon from '@app/domain/DomainIcon';

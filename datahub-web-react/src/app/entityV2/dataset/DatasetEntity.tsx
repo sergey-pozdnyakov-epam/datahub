@@ -12,7 +12,9 @@ import {
     WarningOutlined,
 } from '@ant-design/icons';
 import ViewComfyOutlinedIcon from '@mui/icons-material/ViewComfyOutlined';
-import { Columns, ListBullets, TreeStructure } from '@phosphor-icons/react';
+import { Columns } from '@phosphor-icons/react/dist/csr/Columns';
+import { ListBullets } from '@phosphor-icons/react/dist/csr/ListBullets';
+import { TreeStructure } from '@phosphor-icons/react/dist/csr/TreeStructure';
 import * as React from 'react';
 
 import { GenericEntityProperties } from '@app/entity/shared/types';

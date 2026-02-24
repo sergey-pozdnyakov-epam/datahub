@@ -1,5 +1,10 @@
 import { ConsoleSqlOutlined } from '@ant-design/icons';
-import { ArrowsClockwise, FileText, ListBullets, Share, TreeStructure, WarningCircle } from '@phosphor-icons/react';
+import { ArrowsClockwise } from '@phosphor-icons/react/dist/csr/ArrowsClockwise';
+import { FileText } from '@phosphor-icons/react/dist/csr/FileText';
+import { ListBullets } from '@phosphor-icons/react/dist/csr/ListBullets';
+import { Share } from '@phosphor-icons/react/dist/csr/Share';
+import { TreeStructure } from '@phosphor-icons/react/dist/csr/TreeStructure';
+import { WarningCircle } from '@phosphor-icons/react/dist/csr/WarningCircle';
 import * as React from 'react';
 
 import { GenericEntityProperties } from '@app/entity/shared/types';

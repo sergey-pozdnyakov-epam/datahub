@@ -1,5 +1,5 @@
 import { AppstoreOutlined, FileOutlined, FolderOutlined, UnlockOutlined } from '@ant-design/icons';
-import { ListBullets } from '@phosphor-icons/react';
+import { ListBullets } from '@phosphor-icons/react/dist/csr/ListBullets';
 import * as React from 'react';
 
 import AccessManagement from '@app/entity/shared/tabs/Dataset/AccessManagement/AccessManagement';

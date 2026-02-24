@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { IconNames } from '@components/components/Icon';
-
 export type SelectSizeOptions = 'sm' | 'md' | 'lg';
 export interface SelectOption {
     value: string;
@@ -29,7 +27,7 @@ export interface SelectProps<OptionType extends SelectOption = SelectOption> {
     onClear?: () => void;
     onUpdate?: (selectedValues: string[]) => void;
     size?: SelectSizeOptions;
-    icon?: IconNames;
+    icon?: React.ComponentType<any>;
     showSearch?: boolean;
     isDisabled?: boolean;
     isReadOnly?: boolean;

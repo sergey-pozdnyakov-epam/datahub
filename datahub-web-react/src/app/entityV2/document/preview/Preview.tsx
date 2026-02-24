@@ -1,4 +1,4 @@
-import { FileText } from '@phosphor-icons/react';
+import { FileText } from '@phosphor-icons/react/dist/csr/FileText';
 import React from 'react';
 
 import { GenericEntityProperties } from '@app/entity/shared/types';

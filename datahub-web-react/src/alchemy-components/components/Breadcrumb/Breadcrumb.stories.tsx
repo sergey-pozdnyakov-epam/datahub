@@ -4,6 +4,7 @@ import React from 'react';
 
 import { Breadcrumb } from '@components/components/Breadcrumb';
 import { Icon } from '@components/components/Icon';
+import { ArrowRight } from '@phosphor-icons/react/dist/csr/ArrowRight';
 
 // Auto Docs
 const meta = {
@@ -74,12 +75,12 @@ export const withCustomSeparator = () => (
             {
                 label: 'Home',
                 href: '/',
-                separator: <Icon icon="ArrowRight" source="phosphor" color="gray" colorLevel={1800} size="sm" />,
+                separator: <Icon icon={ArrowRight} color="gray" colorLevel={1800} size="sm" />,
             },
             {
                 label: 'Projects',
                 href: '/projects',
-                separator: <Icon icon="ArrowRight" source="phosphor" color="gray" colorLevel={1800} size="sm" />,
+                separator: <Icon icon={ArrowRight} color="gray" colorLevel={1800} size="sm" />,
             },
             { label: 'Overview', isCurrent: true },
         ]}
