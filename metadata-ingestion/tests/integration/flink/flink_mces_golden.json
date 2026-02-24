@@ -1,0 +1,354 @@
+[
+  {
+    "entityType": "container",
+    "entityUrn": "urn:li:container:cb01e4d6aafd0cabd384fe475b5e9232",
+    "changeType": "UPSERT",
+    "aspectName": "containerProperties",
+    "aspect": {
+      "json": {
+        "customProperties": {
+          "platform": "flink",
+          "env": "TEST",
+          "cluster_name": "flink-test-cluster",
+          "flink-version": "1.20.1",
+          "taskmanagers": "1",
+          "slots-total": "4",
+          "slots-available": "2"
+        },
+        "externalUrl": "http://localhost:8081",
+        "name": "flink-test-cluster",
+        "qualifiedName": "flink-test-cluster",
+        "description": "Flink cluster at http://localhost:8081",
+        "env": "TEST"
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407304,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "container",
+    "entityUrn": "urn:li:container:cb01e4d6aafd0cabd384fe475b5e9232",
+    "changeType": "UPSERT",
+    "aspectName": "status",
+    "aspect": {
+      "json": {
+        "removed": false
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407305,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "container",
+    "entityUrn": "urn:li:container:cb01e4d6aafd0cabd384fe475b5e9232",
+    "changeType": "UPSERT",
+    "aspectName": "dataPlatformInstance",
+    "aspect": {
+      "json": {
+        "platform": "urn:li:dataPlatform:flink"
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407305,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "container",
+    "entityUrn": "urn:li:container:cb01e4d6aafd0cabd384fe475b5e9232",
+    "changeType": "UPSERT",
+    "aspectName": "subTypes",
+    "aspect": {
+      "json": {
+        "typeNames": [
+          "Flink Cluster"
+        ]
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407305,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "container",
+    "entityUrn": "urn:li:container:cb01e4d6aafd0cabd384fe475b5e9232",
+    "changeType": "UPSERT",
+    "aspectName": "browsePathsV2",
+    "aspect": {
+      "json": {
+        "path": []
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407306,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataFlow",
+    "entityUrn": "urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST)",
+    "changeType": "UPSERT",
+    "aspectName": "dataPlatformInstance",
+    "aspect": {
+      "json": {
+        "platform": "urn:li:dataPlatform:flink"
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407307,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataFlow",
+    "entityUrn": "urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST)",
+    "changeType": "UPSERT",
+    "aspectName": "dataFlowInfo",
+    "aspect": {
+      "json": {
+        "customProperties": {
+          "job_id": "3de0d6cb1d87f284b6f567a5bb7de098",
+          "state": "RUNNING",
+          "start-time": "",
+          "end-time": "",
+          "checkpoint_id": "1808",
+          "checkpoint_status": "COMPLETED",
+          "checkpoint_external_path": "<checkpoint-not-externally-addressable>",
+          "checkpoint_state_size": "16187",
+          "checkpoint_duration": "0"
+        },
+        "externalUrl": "http://localhost:8081/#/jobs/3de0d6cb1d87f284b6f567a5bb7de098",
+        "name": "3de0d6cb1d87f284b6f567a5bb7de098",
+        "env": "TEST"
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407307,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataJob",
+    "entityUrn": "urn:li:dataJob:(urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST),bc764cd8ddf7a0cff126f51c16239658)",
+    "changeType": "UPSERT",
+    "aspectName": "dataPlatformInstance",
+    "aspect": {
+      "json": {
+        "platform": "urn:li:dataPlatform:flink"
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407307,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataJob",
+    "entityUrn": "urn:li:dataJob:(urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST),bc764cd8ddf7a0cff126f51c16239658)",
+    "changeType": "UPSERT",
+    "aspectName": "dataJobInfo",
+    "aspect": {
+      "json": {
+        "customProperties": {
+          "vertex_id": "bc764cd8ddf7a0cff126f51c16239658",
+          "parallelism": "2",
+          "status": "RUNNING"
+        },
+        "name": "Source: Events Generator Source",
+        "description": "Flink operator in job 3de0d6cb1d87f284b6f567a5bb7de098",
+        "type": {
+          "string": "COMMAND"
+        },
+        "flowUrn": "urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST)",
+        "env": "TEST"
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407308,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataJob",
+    "entityUrn": "urn:li:dataJob:(urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST),bc764cd8ddf7a0cff126f51c16239658)",
+    "changeType": "UPSERT",
+    "aspectName": "subTypes",
+    "aspect": {
+      "json": {
+        "typeNames": [
+          "FLINK_OPERATOR"
+        ]
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407308,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataJob",
+    "entityUrn": "urn:li:dataJob:(urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST),bc764cd8ddf7a0cff126f51c16239658)",
+    "changeType": "UPSERT",
+    "aspectName": "browsePathsV2",
+    "aspect": {
+      "json": {
+        "path": [
+          {
+            "id": "3de0d6cb1d87f284b6f567a5bb7de098",
+            "urn": "urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST)"
+          }
+        ]
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407309,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataJob",
+    "entityUrn": "urn:li:dataJob:(urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST),20ba6b65f97481d5570070de90e4e791)",
+    "changeType": "UPSERT",
+    "aspectName": "dataPlatformInstance",
+    "aspect": {
+      "json": {
+        "platform": "urn:li:dataPlatform:flink"
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407309,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataJob",
+    "entityUrn": "urn:li:dataJob:(urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST),20ba6b65f97481d5570070de90e4e791)",
+    "changeType": "UPSERT",
+    "aspectName": "dataJobInfo",
+    "aspect": {
+      "json": {
+        "customProperties": {
+          "vertex_id": "20ba6b65f97481d5570070de90e4e791",
+          "parallelism": "2",
+          "status": "RUNNING"
+        },
+        "name": "Flat Map -> Sink: Print to Std. Out",
+        "description": "Flink operator in job 3de0d6cb1d87f284b6f567a5bb7de098",
+        "type": {
+          "string": "COMMAND"
+        },
+        "flowUrn": "urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST)",
+        "env": "TEST"
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407309,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataJob",
+    "entityUrn": "urn:li:dataJob:(urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST),20ba6b65f97481d5570070de90e4e791)",
+    "changeType": "UPSERT",
+    "aspectName": "subTypes",
+    "aspect": {
+      "json": {
+        "typeNames": [
+          "FLINK_OPERATOR"
+        ]
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407310,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataJob",
+    "entityUrn": "urn:li:dataJob:(urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST),20ba6b65f97481d5570070de90e4e791)",
+    "changeType": "UPSERT",
+    "aspectName": "browsePathsV2",
+    "aspect": {
+      "json": {
+        "path": [
+          {
+            "id": "3de0d6cb1d87f284b6f567a5bb7de098",
+            "urn": "urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST)"
+          }
+        ]
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407310,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataFlow",
+    "entityUrn": "urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST)",
+    "changeType": "UPSERT",
+    "aspectName": "status",
+    "aspect": {
+      "json": {
+        "removed": false
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407310,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataJob",
+    "entityUrn": "urn:li:dataJob:(urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST),20ba6b65f97481d5570070de90e4e791)",
+    "changeType": "UPSERT",
+    "aspectName": "status",
+    "aspect": {
+      "json": {
+        "removed": false
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407311,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  },
+  {
+    "entityType": "dataJob",
+    "entityUrn": "urn:li:dataJob:(urn:li:dataFlow:(flink,3de0d6cb1d87f284b6f567a5bb7de098,TEST),bc764cd8ddf7a0cff126f51c16239658)",
+    "changeType": "UPSERT",
+    "aspectName": "status",
+    "aspect": {
+      "json": {
+        "removed": false
+      }
+    },
+    "systemMetadata": {
+      "lastObserved": 1704047407311,
+      "runId": "flink-2024_01_01-00_00_06-ymx12i",
+      "lastRunId": "no-run-id-provided"
+    }
+  }
+]

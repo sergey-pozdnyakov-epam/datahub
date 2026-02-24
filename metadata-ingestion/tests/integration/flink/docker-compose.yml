@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  jobmanager:
+    image: flink:1.19-scala_2.12
+    container_name: flink-jobmanager-test
+    ports:
+      - "8082:8081"
+    command: jobmanager
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        rest.port: 8081
+
+  taskmanager:
+    image: flink:1.19-scala_2.12
+    container_name: flink-taskmanager-test
+    depends_on:
+      - jobmanager
+    command: taskmanager
+    environment:
+      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager
+        taskmanager.numberOfTaskSlots: 2
+
+  sql-gateway:
+    image: flink:1.19-scala_2.12
+    container_name: flink-sql-gateway-test
+    depends_on:
+      - jobmanager
+    ports:
+      - "8084:8083"
+    command: |
+      bash -c "
+        /opt/flink/bin/sql-gateway.sh start -Dsql-gateway.endpoint.rest.address=0.0.0.0 &&
+        tail -f /dev/null
+      "
+    environment:
+      - |
+        FLINK_PROPERTIES=
+        jobmanager.rpc.address: jobmanager

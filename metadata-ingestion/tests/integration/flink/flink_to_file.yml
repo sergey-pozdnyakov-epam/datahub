@@ -1,0 +1,24 @@
+source:
+  type: flink
+  config:
+    connection:
+      rest_api_url: "http://localhost:8081"
+      sql_gateway_url: "http://localhost:8083"
+
+    # Extract catalog metadata (tables from SQL Gateway)
+    include_catalog_metadata: true
+
+    # Extract job metadata
+    include_checkpoint_metadata: true
+    include_job_exceptions: true
+
+    # Cluster identification
+    cluster_name: "flink-test-cluster"
+
+    # Environment
+    env: "TEST"
+
+sink:
+  type: file
+  config:
+    filename: "./flink_mces.json"
