@@ -521,14 +521,16 @@ class TestFlinkEntityURNs:
             dataflow_urns = [
                 wu.metadata.entityUrn
                 for wu in workunits
-                if "dataFlow" in wu.metadata.entityUrn
+                if hasattr(wu.metadata, "entityUrn")
+                and isinstance(wu.metadata.entityUrn, str)
+                and "dataFlow" in wu.metadata.entityUrn
             ]
 
             assert len(dataflow_urns) > 0
             # URN should contain platform (flink), job ID, and env (PROD)
-            assert any("flink" in urn for urn in dataflow_urns)
-            assert any("test-job-id" in urn for urn in dataflow_urns)
-            assert any("PROD" in urn for urn in dataflow_urns)
+            assert any("flink" in str(urn) for urn in dataflow_urns)
+            assert any("test-job-id" in str(urn) for urn in dataflow_urns)
+            assert any("PROD" in str(urn) for urn in dataflow_urns)
 
     def test_datajob_urn_references_dataflow(self):
         """Test that DataJob URNs correctly reference parent DataFlow."""
@@ -572,12 +574,15 @@ class TestFlinkEntityURNs:
             datajob_urns = [
                 wu.metadata.entityUrn
                 for wu in workunits
-                if "dataJob" in wu.metadata.entityUrn
+                if hasattr(wu.metadata, "entityUrn")
+                and isinstance(wu.metadata.entityUrn, str)
+                and "dataJob" in wu.metadata.entityUrn
             ]
 
             # DataJob URNs should reference the DataFlow
             assert len(datajob_urns) > 0
             for urn in datajob_urns:
+                assert isinstance(urn, str)
                 assert "dataFlow" in urn  # DataJob URNs contain DataFlow URN
 
 

@@ -83,18 +83,20 @@ def test_flink_ingestion_golden_file(flink_test_data, pytestconfig, tmp_path):
     )
 
     # Run ingestion
-    pipeline_config = {
+    connection_config: dict[str, str] = {
+        "rest_api_url": "http://localhost:8081",
+    }
+    source_config: dict[str, object] = {
+        "connection": connection_config,
+        "include_checkpoint_metadata": True,
+        "include_job_exceptions": True,
+        "cluster_name": "flink-test-cluster",
+        "env": "TEST",
+    }
+    pipeline_config: dict[str, object] = {
         "source": {
             "type": "flink",
-            "config": {
-                "connection": {
-                    "rest_api_url": "http://localhost:8081",
-                },
-                "include_checkpoint_metadata": True,
-                "include_job_exceptions": True,
-                "cluster_name": "flink-test-cluster",
-                "env": "TEST",
-            },
+            "config": source_config,
         },
         "sink": {
             "type": "file",
@@ -104,10 +106,8 @@ def test_flink_ingestion_golden_file(flink_test_data, pytestconfig, tmp_path):
 
     # Add SQL Gateway config if available
     if sql_gateway_available:
-        pipeline_config["source"]["config"]["connection"]["sql_gateway_url"] = (
-            "http://localhost:8083"
-        )
-        pipeline_config["source"]["config"]["include_catalog_metadata"] = True
+        connection_config["sql_gateway_url"] = "http://localhost:8083"
+        source_config["include_catalog_metadata"] = True
 
     pipeline = Pipeline.create(pipeline_config)
     pipeline.run()
@@ -230,7 +230,7 @@ def test_flink_extracts_cluster_container(flink_test_data, tmp_path):
     for wu in workunits:
         if hasattr(wu.metadata, "entityUrn"):
             urn = wu.metadata.entityUrn
-            if "container" in urn:
+            if isinstance(urn, str) and "container" in urn:
                 container_urns.append(urn)
 
     # Should have at least one container (the cluster)
@@ -241,7 +241,7 @@ def test_flink_extracts_cluster_container(flink_test_data, tmp_path):
     for wu in workunits:
         if hasattr(wu.metadata, "aspect"):
             aspect = wu.metadata.aspect
-            if hasattr(aspect, "name"):
+            if aspect is not None and hasattr(aspect, "name"):
                 if "test-cluster" in aspect.name or "flink" in aspect.name.lower():
                     found_cluster = True
                     break
@@ -283,12 +283,12 @@ def test_flink_extracts_catalog_tables(flink_test_data, tmp_path):
     for wu in workunits:
         if hasattr(wu.metadata, "entityUrn"):
             urn = wu.metadata.entityUrn
-            if "dataset" in urn:
+            if isinstance(urn, str) and "dataset" in urn:
                 dataset_urns.append(urn)
 
         if hasattr(wu.metadata, "aspect"):
             aspect = wu.metadata.aspect
-            if hasattr(aspect, "fields"):  # schemaMetadata aspect
+            if aspect is not None and hasattr(aspect, "fields"):
                 schema_aspects.append(aspect)
 
     # Should have extracted tables (users, orders, products from setup if available)
@@ -340,8 +340,10 @@ def test_flink_type_mapping(flink_test_data, tmp_path):
     # Find schema aspects
     all_fields = []
     for wu in workunits:
-        if hasattr(wu.metadata, "aspect") and hasattr(wu.metadata.aspect, "fields"):
-            all_fields.extend(wu.metadata.aspect.fields)
+        if hasattr(wu.metadata, "aspect"):
+            aspect = wu.metadata.aspect
+            if aspect is not None and hasattr(aspect, "fields"):
+                all_fields.extend(aspect.fields)
 
     # Should have fields
     assert len(all_fields) > 0, "No schema fields found"

@@ -917,7 +917,7 @@
           "supported": true
         }
       ],
-      "classname": "datahub.ingestion.source.sql.doris.DorisSource",
+      "classname": "datahub.ingestion.source.sql.doris.doris_source.DorisSource",
       "platform_id": "doris",
       "platform_name": "Apache Doris",
       "support_status": "INCUBATING"
@@ -1265,6 +1265,32 @@
       "platform_id": "fivetran",
       "platform_name": "Fivetran",
       "support_status": "CERTIFIED"
+    },
+    "flink": {
+      "capabilities": [
+        {
+          "capability": "DESCRIPTIONS",
+          "description": "Enabled by default",
+          "subtype_modifier": null,
+          "supported": true
+        },
+        {
+          "capability": "DELETION_DETECTION",
+          "description": "Enabled via stateful ingestion",
+          "subtype_modifier": null,
+          "supported": true
+        },
+        {
+          "capability": "PLATFORM_INSTANCE",
+          "description": "Enabled by default",
+          "subtype_modifier": null,
+          "supported": true
+        }
+      ],
+      "classname": "datahub.ingestion.source.flink.source.FlinkSource",
+      "platform_id": "flink",
+      "platform_name": "Flink",
+      "support_status": "INCUBATING"
     },
     "gcs": {
       "capabilities": [
@@ -2508,7 +2534,7 @@
         },
         {
           "capability": "USAGE_STATS",
-          "description": "Enabled by default via SQL aggregator when processing observed queries",
+          "description": "Optionally enabled via `include_query_usage` to extract from V$SQL, or via `include_usage_stats` for view/procedure lineage",
           "subtype_modifier": null,
           "supported": true
         },
