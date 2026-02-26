@@ -3,6 +3,7 @@ import { ArrowsClockwise } from '@phosphor-icons/react/dist/csr/ArrowsClockwise'
 import { FileText } from '@phosphor-icons/react/dist/csr/FileText';
 import { ListBullets } from '@phosphor-icons/react/dist/csr/ListBullets';
 import { Share } from '@phosphor-icons/react/dist/csr/Share';
+import { Swap } from '@phosphor-icons/react/dist/csr/Swap';
 import { TreeStructure } from '@phosphor-icons/react/dist/csr/TreeStructure';
 import { WarningCircle } from '@phosphor-icons/react/dist/csr/WarningCircle';
 import * as React from 'react';
@@ -64,20 +65,12 @@ export class DataJobEntity implements Entity<DataJob> {
     type: EntityType = EntityType.DataJob;
 
     icon = (fontSize?: number, styleType?: IconStyleType, color?: string) => {
-        if (styleType === IconStyleType.TAB_VIEW) {
-            return <ConsoleSqlOutlined className={TYPE_ICON_CLASS_NAME} style={{ fontSize, color }} />;
-        }
-
-        if (styleType === IconStyleType.HIGHLIGHT) {
-            return (
-                <ConsoleSqlOutlined className={TYPE_ICON_CLASS_NAME} style={{ fontSize, color: color || '#B37FEB' }} />
-            );
-        }
-
         return (
-            <ConsoleSqlOutlined
+            <Swap
                 className={TYPE_ICON_CLASS_NAME}
-                style={{ fontSize: fontSize || 'inherit', color: color || 'inherit' }}
+                size={fontSize || 14}
+                color={color || 'currentColor'}
+                weight={styleType === IconStyleType.HIGHLIGHT ? 'fill' : 'regular'}
             />
         );
     };
