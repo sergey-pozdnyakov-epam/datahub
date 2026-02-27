@@ -1,5 +1,5 @@
 name: Post Workflow Actions
-run-name: Post Workflow Actions for ${{ github.event.workflow_run.name }}
+run-name: Post Workflow Actions for ${{ github.event_name == 'workflow_dispatch' && format('run {0}', inputs.run_id) || github.event.workflow_run.name }}
 
 # Triggered when a monitored workflow completes.
 # NOTE: workflow_run.workflows does not support wildcards —
@@ -15,6 +15,25 @@ on:
     types:
       - completed
 
+  # Allows manual triggering for ad-hoc testing against any existing workflow run.
+  # publish defaults to false so artifacts are not forwarded to downstream by accident.
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: "Workflow run ID to collect metrics for"
+        required: true
+        type: string
+      attempt:
+        description: "Run attempt number"
+        required: false
+        type: string
+        default: "1"
+      publish:
+        description: "Publish metrics artifacts downstream"
+        required: false
+        type: boolean
+        default: false
+
 permissions:
   actions: read
   contents: read
@@ -22,9 +41,6 @@ permissions:
 jobs:
   collect-metrics:
     runs-on: ubuntu-latest
-
-    env:
-      ARTIFACT_NAME: workflow-metrics-${{ github.event.workflow_run.id }}-attempt-${{ github.event.workflow_run.run_attempt }}
 
     steps:
       - name: Checkout repository
@@ -44,22 +60,32 @@ jobs:
         run: uv pip install requests==2.32.5 --system
 
       - name: Collect metrics
+        id: collect-metrics
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Fall back to workflow_run event values when not triggered manually.
+          RUN_ID: ${{ inputs.run_id || github.event.workflow_run.id }}
+          ATTEMPT: ${{ inputs.attempt || github.event.workflow_run.run_attempt }}
+          # Always publish for automated workflow_run triggers; honour the explicit input for workflow_dispatch.
+          PUBLISH: ${{ github.event_name == 'workflow_run' || inputs.publish == true }}
         run: |
+          ARTIFACT_NAME="workflow-metrics-${RUN_ID}-attempt-${ATTEMPT}"
+          echo "artifact_name=${ARTIFACT_NAME}" >> "$GITHUB_OUTPUT"
+          echo "publish=${PUBLISH}" >> "$GITHUB_OUTPUT"
           cd .github/scripts
           python collect_workflow_metrics.py \
-            --run-id "${{ github.event.workflow_run.id }}" \
-            --attempt "${{ github.event.workflow_run.run_attempt }}" \
+            --run-id "${RUN_ID}" \
+            --attempt "${ATTEMPT}" \
             --repo "${{ github.repository }}" \
-            --output "${{ env.ARTIFACT_NAME }}.json"
-          cat ${{ env.ARTIFACT_NAME }}
+            --output "${ARTIFACT_NAME}.json"
+          cat "${ARTIFACT_NAME}.json"
 
       - name: Upload metrics artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.ARTIFACT_NAME }}
-          path: .github/scripts/${{ env.ARTIFACT_NAME }}.json
+          name: ${{ steps.collect-metrics.outputs.artifact_name }}
+          path: .github/scripts/${{ steps.collect-metrics.outputs.artifact_name }}.json
           if-no-files-found: error
           retention-days: 7
       # TODO(devashish.chandra): Post metrics to Posthog, maybe save to S3?
+      # Gate on: steps.collect-metrics.outputs.publish == 'true'
