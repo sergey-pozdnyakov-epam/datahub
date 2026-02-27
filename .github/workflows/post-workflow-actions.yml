@@ -40,8 +40,17 @@ permissions:
 
 jobs:
   collect-metrics:
+    # For workflow_run: only collect metrics for PRs and pushes to the default/release/hotfix
+    # branches — skip feature branches, dependabot bumps, etc.
+    # workflow_dispatch is always allowed for ad-hoc testing.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.event == 'pull_request' ||
+      (github.event.workflow_run.event == 'push' &&
+        (github.event.workflow_run.head_branch == 'master' ||
+         startsWith(github.event.workflow_run.head_branch, 'release/') ||
+         startsWith(github.event.workflow_run.head_branch, 'hotfix/')))
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -57,7 +66,7 @@ jobs:
           enable-cache: true
 
       - name: Install dependencies
-        run: uv pip install requests==2.32.5 --system
+        run: uv pip install requests==2.32.5 posthog==7.9.4 --system
 
       - name: Collect metrics
         id: collect-metrics
@@ -78,7 +87,15 @@ jobs:
             --attempt "${ATTEMPT}" \
             --repo "${{ github.repository }}" \
             --output "${ARTIFACT_NAME}.json"
-          cat "${ARTIFACT_NAME}.json"
+          # Print workflow summary
+          jq -r '
+            "## \(.workflow.name // "Workflow"): \(.workflow.conclusion // "unknown")",
+            "Duration: \(.workflow.duration_seconds // 0)s | Jobs: \(.jobs | length)",
+            "",
+            "| Job | Conclusion | Steps | Duration |",
+            "|---|---|---|---|",
+            (.jobs[] | "| \(.full_name // .name) | \(.conclusion // "unknown") | \(.steps | length) | \(.duration_seconds // 0)s |")
+          ' "${ARTIFACT_NAME}.json" | tee -a "${GITHUB_STEP_SUMMARY}"
 
       - name: Upload metrics artifact
         uses: actions/upload-artifact@v4
@@ -87,5 +104,12 @@ jobs:
           path: .github/scripts/${{ steps.collect-metrics.outputs.artifact_name }}.json
           if-no-files-found: error
           retention-days: 7
-      # TODO(devashish.chandra): Post metrics to Posthog, maybe save to S3?
-      # Gate on: steps.collect-metrics.outputs.publish == 'true'
+      - name: Publish metrics to PostHog
+        if: steps.collect-metrics.outputs.publish == 'true'
+        env:
+          POSTHOG_API_KEY: ${{ secrets.POSTHOG_API_KEY }}
+        run: |
+          cd .github/scripts
+          python publish_to_posthog.py \
+            --input "${{ steps.collect-metrics.outputs.artifact_name }}.json"
+      # TODO(devashish.chandra): Save to S3?
